@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Fuad Store - Escape The Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Arial', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 1px;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .online-count {
+            background: #1a1a1a;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid #333;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="0.5" fill="%23333" opacity="0.1"/><circle cx="75" cy="75" r="0.5" fill="%23333" opacity="0.1"/><circle cx="50" cy="10" r="0.3" fill="%23333" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #cccccc;
+            font-weight: 400;
+        }
+
+        .cta-primary {
+            background: #ffd700;
+            color: #000000;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin: 20px 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-primary:hover {
+            background: #ffed4a;
+            transform: translateY(-2px);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #ffd700;
+            padding: 18px 40px;
+            border: 2px solid #ffd700;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin: 20px 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-secondary:hover {
+            background: #ffd700;
+            color: #000000;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: #111111;
+            padding: 60px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #cccccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            background: #000000;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #999999;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .course-description {
+            color: #cccccc;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .original-price {
+            font-size: 1.1rem;
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .discount-price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00ff88;
+        }
+
+        .savings-badge {
+            background: #ff4444;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .course-cta {
+            background: #ffd700;
+            color: #000000;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .course-cta:hover {
+            background: #ffed4a;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #111111;
+            padding: 80px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            background: transparent;
+            color: #ffd700;
+            padding: 15px 30px;
+            border: 2px solid #ffd700;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-link:hover {
+            background: #ffd700;
+            color: #000000;
+        }
+
+        /* Purchase Notifications */
+        .purchase-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-left: 4px solid #00ff88;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            max-width: 350px;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: all 0.5s ease;
+        }
+
+        .purchase-notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .buyer-info {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .course-info {
+            font-size: 0.85rem;
+            color: #cccccc;
+            margin-bottom: 5px;
+        }
+
+        .time-info {
+            font-size: 0.75rem;
+            color: #999999;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav { padding: 0 15px; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .contact-links { flex-direction: column; align-items: center; }
+            .purchase-notification { left: 10px; right: 10px; max-width: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">FINANCIAL FUAD STORE</div>
+            <div class="nav-right">
+                <div class="online-count">
+                    <span class="online-dot"></span>
+                    <span id="onlineCount">147</span> online
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>HALAL INCOME WITH FUAD</h1>
+                <p class="subtitle">Earn clean, permissible income through legitimate skills. Build wealth the Islamic way.</p>
+                <p style="font-size: 1.1rem; color: #999; margin-bottom: 40px;">
+                    All courses teach 100% halal income methods - no interest (riba), gambling, or deceptive practices. Just honest work that pays.
+                </p>
+                <a href="#courses" class="cta-primary">VIEW ALL COURSES</a>
+                <a href="#contact" class="cta-secondary">TALK TO FUAD</a>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="studentsCount">2,847</div>
+                        <div class="stat-label">Muslims Learning Halal Skills</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Shariah Compliant Methods</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="purchasesToday">23</div>
+                        <div class="stat-label">Joined Today</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">94.7%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="courses-section" id="courses">
+            <div class="container">
+                <h2 class="section-title">HALAL WEALTH BUILDING COURSES</h2>
+                <p class="section-subtitle">
+                    26 Islamic-approved income methods. No riba (interest), no gambling, no deception. 
+                    Just honest skills that create permissible wealth according to Shariah principles.
+                </p>
+                <div class="courses-grid">
+                    
+                    <div class="course-card">
+                        <h3 class="course-title">Smartphone Daily Income Mastery</h3>
+                        <p class="course-description">✅ <strong>100% Halal</strong> - Affiliate marketing through honest promotion of beneficial products. No deception, no gambling elements. Earn in pounds through legitimate referrals.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦36,999</span>
+                            <span class="discount-price">₦13,300</span>
+                            <span class="savings-badge">Save ₦23,699</span>
+                        </div>
+                        <a href="https://profitspark.co/product/SDIM?af=2310" class="course-cta" target="_blank">GET HALAL ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">YouTube Daily Income University</h3>
+                        <p class="course-description">✅ <strong>Shariah Compliant</strong> - Create beneficial content, earn through legitimate YouTube monetization. No music, no inappropriate content. Pure halal income.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,999</span>
+                            <span class="discount-price">₦12,000</span>
+                            <span class="savings-badge">Save ₦38,999</span>
+                        </div>
+                        <a href="https://www.profitspark.co/product/YDI/?af=2310" class="course-cta" target="_blank">GET HALAL ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Millionaire Ads Manager University</h3>
+                        <p class="course-description">✅ <strong>Permissible Service</strong> - Help halal businesses grow through legitimate advertising. Avoid promoting haram products. Ethical marketing only.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦200,000</span>
+                            <span class="discount-price">₦20,000</span>
+                            <span class="savings-badge">Save ₦180,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/MAMU?af=2310" class="course-cta" target="_blank">GET HALAL ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Chop African Money Program</h3>
+                        <p class="course-description">✅ <strong>Halal Digital Products</strong> - Create and sell beneficial digital content that helps others. Educational materials, courses, and useful resources only.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,000</span>
+                            <span class="discount-price">₦10,000</span>
+                            <span class="savings-badge">Save ₦40,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/ChopAfrica?af=2310" class="course-cta" target="_blank">GET HALAL ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">WhatsApp Class Automation Kit</h3>
+                        <p class="course-description">✅ <strong>Educational Service</strong> - Teach beneficial skills and knowledge. Automate the delivery of valuable education. Pure service-based income.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦26,250</span>
+                            <span class="discount-price">₦6,000</span>
+                            <span class="savings-badge">Save ₦20,250</span>
+                        </div>
+                        <a href="https://profitspark.co/product/WAuto?af=2310" class="course-cta" target="_blank">GET HALAL ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">YouTube Faceless Income Generator</h3>
+                        <p class="course-description">✅ <strong>Content Creation</strong> - Build channels with beneficial, educational content. No inappropriate material. Maintain privacy while earning halal income.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,000</span>
+                            <span class="discount-price">₦10,000</span>
+                            <span class="savings-badge">Save ₦40,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/YFIG?af=2310" class="course-cta" target="_blank">GET HALAL ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">WhatsApp Group Booster</h3>
+                        <p class="course-description">Fill WhatsApp groups with quality leads for ₦5 per lead. Sell products faster. Stop struggling with empty groups.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦25,000</span>
+                            <span class="discount-price">₦6,000</span>
+                            <span class="savings-badge">Save ₦19,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/WGB?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Fiverr 6-Figure Monthly Secrets</h3>
+                        <p class="course-description">Make ₦355,000+ monthly on Fiverr. Secret formula most people will never know. Don't be most people.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦253,000</span>
+                                                     <span class="discount-price">₦12,000</span>
+                            <span class="savings-badge">Save ₦241,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/FIVERR?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">CAC Registration Kit</h3>
+                        <p class="course-description">Make ₦10K-₦210K registering businesses with just your phone. Zero startup capital. Pure profit business.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦700,000</span>
+                            <span class="discount-price">₦30,000</span>
+                            <span class="savings-badge">Save ₦670,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/CACREG?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Smartphone A.I-preneur Profit School</h3>
+                        <p class="course-description">Command AI to make $300-$500 monthly. While others waste time with ChatGPT, you'll get paid. Be an AI commander.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦30,000</span>
+                            <span class="discount-price">₦15,000</span>
+                            <span class="savings-badge">Save ₦15,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/SAPS?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Website Design Masterclass</h3>
+                        <p class="course-description">Design websites with your smartphone. Work remotely, earn in different currencies. Stop being dependent.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,000</span>
+                            <span class="discount-price">₦30,000</span>
+                            <span class="savings-badge">Save ₦20,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/WDM?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Smartphone YouTube Landlord Cashout</h3>
+                        <p class="course-description">Become a digital landlord collecting rent in dollars. Channels making $500-$20K for 1M views. If you miss this, you don't love yourself.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦100,000</span>
+                            <span class="discount-price">₦20,000</span>
+                            <span class="savings-badge">Save ₦80,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/SYLC?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Smartphone Facebook Ads Antidote</h3>
+                        <p class="course-description">Run profitable Facebook ads with just your phone. Generate hundreds of leads. Your competitors are already using this.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦100,000</span>
+                            <span class="discount-price">₦15,000</span>
+                            <span class="savings-badge">Save ₦85,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/SFAA?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">The Forex Money Machine</h3>
+                        <p class="course-description">Print money from Forex with your phone. Make $20-$500 daily. No products to sell, no customers to convince. Pure profit.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦250,000</span>
+                            <span class="discount-price">₦50,000</span>
+                            <span class="savings-badge">Save ₦200,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/The_Forex_Money_Machine?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Done-For-You WhatsApp Automated Bots</h3>
+                        <p class="course-description">Save and reply to contacts automatically 24/7. Work while you sleep. No tech skills needed - we do it for you.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦150,000</span>
+                            <span class="discount-price">₦40,000</span>
+                            <span class="savings-badge">Save ₦110,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/DFY_WhatsApp22?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">WhatsApp Ban Protection Blueprint</h3>
+                        <p class="course-description">Protect your WhatsApp from bans while generating thousands of leads daily. Getting banned = losing money.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,000</span>
+                            <span class="discount-price">₦6,000</span>
+                            <span class="savings-badge">Save ₦44,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/WHABPB?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Dollars A.I Copywriting University</h3>
+                        <p class="course-description">Earn dollars as AI copywriter. Use AI to close deals with foreign clients. Stop being a JJC, become a professional.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦30,000</span>
+                            <span class="discount-price">₦8,000</span>
+                            <span class="savings-badge">Save ₦22,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/DACU?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Ghostwriting Money Magnet</h3>
+                        <p class="course-description">Earn $200-$1000 monthly writing for foreign clients. No degree needed. From broke to thousands in 3 months.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦152,965</span>
+                            <span class="discount-price">₦20,000</span>
+                            <span class="savings-badge">Save ₦132,965</span>
+                        </div>
+                        <a href="https://profitspark.co/product/GMM?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Smartphone Video Creation & Editing</h3>
+                        <p class="course-description">Make ₦100K-₦250K creating videos with your phone. Millionaires will beg to pay you. ₦2.3M earned in 7 months.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦35,000</span>
+                            <span class="discount-price">₦10,000</span>
+                            <span class="savings-badge">Save ₦25,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/svc4e?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Daily Cashout from Ebook Machine</h3>
+                        <p class="course-description">Made ₦10M selling short ebooks. Sold 10,000+ copies in 11 months. From broke to millionaire - your turn.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦100,000</span>
+                            <span class="discount-price">₦10,000</span>
+                            <span class="savings-badge">Save ₦90,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/Daily_Cashout_Ebook_Machine?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">The Bank Secrets Forex Course</h3>
+                        <p class="course-description">Two secrets that made $15,000+ as a total newbie. Students making $10,000+ monthly using the CZ strategy. Underground secrets exposed.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦100,000</span>
+                            <span class="discount-price">₦50,000</span>
+                            <span class="savings-badge">Save ₦50,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/THE_BANK_SECRETS?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Dollar Forex CPA Marketing Blueprint</h3>
+                        <p class="course-description">Get paid $25,240 USD by European/American companies. 4 hours work per day from your phone. Escape the rat race forever.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦97,000</span>
+                            <span class="discount-price">₦26,000</span>
+                            <span class="savings-badge">Save ₦71,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/DollarFCMB?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">WhatsApp Status Booster & Sales Accelerator 2.0</h3>
+                        <p class="course-description">WhatsApp is the new money platform. Made ₦53M this year via WhatsApp status. From fatherless to owning 4 cars - your turn.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦30,000</span>
+                            <span class="discount-price">₦10,000</span>
+                            <span class="savings-badge">Save ₦20,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/Whatsapp_Status_Booster?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Facebook Sales Ads Secrets</h3>
+                        <p class="course-description">Former Facebook staff with 5 years experience exposes underground secrets. Run ads that sell anything like crazy.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,000</span>
+                            <span class="discount-price">₦20,000</span>
+                            <span class="savings-badge">Save ₦30,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/FSAS?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">PayPal University</h3>
+                        <p class="course-description">Make ₦20,000-₦15,000 daily profit. That's ₦450K-₦600K monthly. Buy nice clothes, provide for your girlfriend, save money.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦50,500</span>
+                            <span class="discount-price">₦30,500</span>
+                            <span class="savings-badge">Save ₦20,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/PayPal_University?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                    <div class="course-card">
+                        <h3 class="course-title">Smartphone Pay Per Lead Dollar Cashout</h3>
+                        <p class="course-description">Earn $500-$1000 monthly without selling anything. Over 2,700 students trained. Matthew went from orphan to millionaire.</p>
+                        <div class="price-section">
+                            <span class="original-price">₦65,000</span>
+                            <span class="discount-price">₦30,000</span>
+                            <span class="savings-badge">Save ₦35,000</span>
+                        </div>
+                        <a href="https://profitspark.co/product/payperlead?af=2310" class="course-cta" target="_blank">GET ACCESS NOW</a>
+                    </div>
+
+                </div>
+
+                <!-- Call to Action -->
+                <div style="text-align: center; margin-top: 80px; padding: 60px 40px; background: #111111; border-radius: 8px; border: 1px solid #333;">
+                    <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; color: #ffffff;">INVEST IN HALAL SKILLS</h2>
+                    <p style="font-size: 1.3rem; color: #cccccc; margin-bottom: 30px;">
+                        These are not just courses - they're Shariah-compliant income methods that will serve you for life.
+                    </p>
+                    <p style="font-size: 1.1rem; color: #ffd700; margin-bottom: 40px; font-weight: 700;">
+                        "And it is He who created the heavens and earth in truth. And the day He says, 'Be,' and it is, His word is the truth." - Quran 6:73
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <p style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; max-width: 300px;">
+                            <strong style="color: #00ff88;">Service-Based Income:</strong><br>
+                            <span style="color: #cccccc; font-size: 0.9rem;">Teaching, consulting, freelancing, web design</span>
+                        </p>
+                        <p style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; max-width: 300px;">
+                            <strong style="color: #ffd700;">Product Sales:</strong><br>
+                            <span style="color: #cccccc; font-size: 0.9rem;">Digital products, ebooks, educational content</span>
+                        </p>
+                        <p style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; max-width: 300px;">
+                            <strong style="color: #ff4444;">Affiliate Marketing:</strong><br>
+                            <span style="color: #cccccc; font-size: 0.9rem;">Promote beneficial products with full disclosure</span>
+                        </p>
+                    </div>
+                    <p style="margin-top: 30px; color: #999999; font-size: 0.95rem;">
+                        All methods comply with Islamic principles: No interest, no gambling, no deception, no selling of haram products.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2 class="contact-title">NEED GUIDANCE? CONSULT FUAD PERSONALLY</h2>
+                <p class="contact-subtitle">
+                    Get Islamic-compliant income advice from someone who understands both business and faith principles.
+                </p>
+                <p style="color: #ffd700; font-size: 1.1rem; margin-bottom: 40px; font-weight: 700;">
+                    Message: "Assalamu Alaikum Fuad, I need halal income guidance. Which course fits my situation?"
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:fuadayantayo@gmail.com" class="contact-link">EMAIL FUAD</a>
+                    <a href="https://wa.me/2348185992072" class="contact-link" target="_blank">WHATSAPP 1</a>
+                    <a href="https://wa.me/2347031602685" class="contact-link" target="_blank">WHATSAPP 2</a>
+                </div>
+                <p style="margin-top: 30px; color: #999999;">
+                    Buy for yourself, buy for your family. Financial education is the best gift you can give.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Purchase Notification -->
+    <div class="purchase-notification" id="purchaseNotification">
+        <div class="buyer-info">🔥 <span id="buyerName">Adebayo</span> from <span id="buyerLocation">Lagos</span></div>
+        <div class="course-info">Just purchased: <span id="courseName">YouTube Daily Income</span></div>
+        <div class="time-info"><span id="timeAgo">2 minutes</span> ago</div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Financial Fuad Store. Stop being broke, start being rich.</p>
+            <p style="margin-top: 10px;">Follow @FinancialFuad on TikTok</p>
+        </div>
+    </footer>
+
+    <script>
+        // Purchase notification data
+        const purchaseData = [
+            {name: "Adebayo", location: "Lagos", course: "YouTube Daily Income University", time: "2 minutes"},
+            {name: "Fatima", location: "Abuja", course: "WhatsApp Status Booster", time: "5 minutes"},
+            {name: "Emeka", location: "Port Harcourt", course: "Forex Money Machine", time: "8 minutes"},
+            {name: "Aisha", location: "Kano", course: "Smartphone Daily Income Mastery", time: "12 minutes"},
+            {name: "Tunde", location: "Ibadan", course: "Millionaire Ads Manager University", time: "15 minutes"},
+            {name: "Blessing", location: "Benin", course: "AI Copywriting University", time: "18 minutes"},
+            {name: "Kemi", location: "Jos", course: "Ebook Machine", time: "22 minutes"},
+            {name: "Chidi", location: "Enugu", course: "CAC Registration Kit", time: "25 minutes"},
+            {name: "Hadiza", location: "Kaduna", course: "Ghostwriting Money Magnet", time: "28 minutes"},
+            {name: "Seun", location: "Akure", course: "PayPal University", time: "31 minutes"},
+            {name: "Zara", location: "Maiduguri", course: "Facebook Sales Ads Secrets", time: "35 minutes"},
+            {name: "Kunle", location: "Ilorin", course: "YouTube Faceless Income", time: "38 minutes"}
+        ];
+
+        let currentPurchaseIndex = 0;
+
+        function showPurchaseNotification() {
+            const notification = document.getElementById('purchaseNotification');
+            const purchase = purchaseData[currentPurchaseIndex];
+            
+            document.getElementById('buyerName').textContent = purchase.name;
+            document.getElementById('buyerLocation').textContent = purchase.location;
+            document.getElementById('courseName').textContent = purchase.course;
+            document.getElementById('timeAgo').textContent = purchase.time;
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+            
+            currentPurchaseIndex = (currentPurchaseIndex + 1) % purchaseData.length;
+        }
+
+        // Update live stats
+        function updateStats() {
+            const studentsElement = document.getElementById('studentsCount');
+            const purchasesElement = document.getElementById('purchasesToday');
+            const onlineElement = document.getElementById('onlineCount');
+            
+            if (studentsElement) {
+                const current = parseInt(studentsElement.textContent.replace(',', ''));
+                studentsElement.textContent = (current + Math.floor(Math.random() * 3)).toLocaleString();
+            }
+            
+            if (purchasesElement && Math.random() > 0.6) {
+                const current = parseInt(purchasesElement.textContent);
+                purchasesElement.textContent = current + 1;
+            }
+            
+            if (onlineElement) {
+                const min = 120, max = 180;
+                onlineElement.textContent = Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize
+        window.addEventListener('load', function() {
+            // Show first notification after 3 seconds
+            setTimeout(showPurchaseNotification, 3000);
+            
+            // Then show every 8-12 seconds
+            setInterval(showPurchaseNotification, Math.random() * 4000 + 8000);
+            
+            // Update stats every 45 seconds
+            setInterval(updateStats, 45000);
+        });
+    </script>
+</body>
+</html>
